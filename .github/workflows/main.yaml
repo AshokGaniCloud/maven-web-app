@@ -17,6 +17,16 @@ jobs:
       uses: actions/setup-java@v1
       with:
           java-version: 17
+          distribution: 'temurin'
+          server-id: 'nexus'
+          server-username: NEXUS_USERNAME
+          server_password: NEXUS_PASSWORD
+          server-id-snapshots: 'nexus'
+          server-username-snapshots: NEXUS_USERNAME
+          server-password-snapshots: NEXUS_PASSWORD
+          cache: 'maven'
+    - name: Set Up Maven
+      run: mvn -B package --file pom.xml
     - name: Cache Sonar Packages
       uses: actions/cache@v1
       with:
@@ -35,5 +45,10 @@ jobs:
         SONAR_HOST_URL : ${{secrets.SONAR_HOST_URL }}
         SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+    - name: Build And Deploy to Nexus
+      run: mvn clean deploy --batch-mode -DskipTests
+      env:
+         NEXUS_USERNAME: ${{secrets.NEXUS_USERNAME}}
+         NEXUS_PASSWORD: ${{secrets.NEXUS_PASSWORD}}
           
     
