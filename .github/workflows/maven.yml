@@ -15,17 +15,17 @@ jobs:
     - name: SetUp Java Jdk
       uses: actions/setup-java@v1
       with:
-          java-version: 17
-          distribution: 'temurin'
-          server-id: 'nexus'
-          server-username: NEXUS_USERNAME
-          server_password: NEXUS_PASSWORD
-          server-id-snapshots: 'nexus'
-          server-username-snapshots: NEXUS_USERNAME
-          server-password-snapshots: NEXUS_PASSWORD
-          cache: 'maven'
+          java-version: 1.8
+         
+          #server-id: 'nexus'
+          #server-username: NEXUS_USERNAME
+          #server_password: NEXUS_PASSWORD
+          #server-id-snapshots: 'nexus'
+          #server-username-snapshots: NEXUS_USERNAME
+          #server-password-snapshots: NEXUS_PASSWORD
+          #cache: 'maven'
     - name: Set Up Maven
-      run: mvn -B package --file pom.xml
+      run: mvn package --file pom.xml
     - name: Cache Sonar Packages
       uses: actions/cache@v4
       with:
@@ -39,10 +39,16 @@ jobs:
          key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml')}}
          restore-keys: ${{runner.os}}-m2
   
-    - name: Build And Deploy to Nexus
-      run: mvn clean deploy --batch-mode -DskipTests
-      env:
-         NEXUS_USERNAME: ${{secrets.NEXUS_USERNAME}}
-         NEXUS_PASSWORD: ${{secrets.NEXUS_PASSWORD}}
+    - name: Nexus Repo Publish
+      uses: sonatype-nexus-community/nexus-repo-github-action@master
+      with:
+        serverUrl: http://20.15.226.35:8081/
+        username: ${{secrets.NEXUS_USERNAME}}
+        password: ${{ secrets.NEXUS_PASSWORD }}
+        format: maven2
+        repository: maven-snapshot
+        coordinates: groupId=com.mt artifactId=maven-web-application version=0.0.1-SNAPSHOT
+        assets: extension=war
+        filename: ./target/maven-web-application.war
           
     
