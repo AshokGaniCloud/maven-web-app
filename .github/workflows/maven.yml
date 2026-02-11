@@ -46,7 +46,7 @@ jobs:
         nexus-username: ${{secrets.NEXUS_USERNAME}}
         nexus-password: ${{ secrets.NEXUS_PASSWORD }}
         nexus-repository: maven-release
-        artifact-path: /home/runner/work/maven-web-app/maven-web-app/target/maven-web-application.war
+        artifact-path: target/maven-web-application.war
         artifact-format:  maven
         artifact-version: 1.0.0
         artifact-group-id: com.mt
