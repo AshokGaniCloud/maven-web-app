@@ -43,7 +43,7 @@ jobs:
         GITHUB_TOKEN: ${{secrets.GIT_TOKEN }}
         SONAR_HOST_URL : ${{secrets.SONAR_HOST_URL }}
         SONAR_TOKEN: ${{secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      run: mvn sonar:sonar
     - name: Build And Deploy to Nexus
       run: mvn clean deploy --batch-mode -DskipTests
       env:
