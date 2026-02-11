@@ -42,15 +42,15 @@ jobs:
     - name: Nexus Repo Publish
       uses: SourceSpring/action-nexus-upload@v0.1.13
       with:
-        nexus-repo-url: http://20.15.226.35:8081
+        nexus-repo-url: http://20.15.226.35:8081/
         nexus-username: ${{secrets.NEXUS_USERNAME}}
         nexus-password: ${{ secrets.NEXUS_PASSWORD }}
-        nexus-repository: "maven-release"
-        artifact-path: "target/maven-web-application.war"
-        artifact-format:  "maven"
-        artifact-version: "1.0.0"
-        artifact-group-id: "com.mt"
-        artifact-id: "maven-web-application"
+        nexus-repository: maven-release
+        artifact-path: /home/runner/work/maven-web-app/maven-web-app/target/maven-web-application.war
+        artifact-format:  maven
+        artifact-version: 1.0.0
+        artifact-group-id: com.mt
+        artifact-id: maven-web-application
     
           
     
