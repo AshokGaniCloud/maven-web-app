@@ -47,7 +47,7 @@ jobs:
         nexus-password: ${{ secrets.NEXUS_PASSWORD }}
         nexus-repository: "maven-release"
         artifact-path: "target/maven-web-application.war"
-        artifact-format:  "maven2"
+        artifact-format:  "maven"
         artifact-version: "1.0.0"
         artifact-group-id: "com.mt"
         artifact-id: "maven-web-application"
