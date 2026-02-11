@@ -46,7 +46,7 @@ jobs:
         username: ${{secrets.NEXUS_USERNAME}}
         password: ${{ secrets.NEXUS_PASSWORD }}
         format: maven2
-        repository: maven-snapshot
+        repository: maven-release
         coordinates: groupId=com.mt artifactId=maven-web-application version=0.0.1-SNAPSHOT
         assets: extension=war
         filename: ./target/maven-web-application.war
