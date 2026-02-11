@@ -10,9 +10,9 @@ resource "azurerm_mssql_server" "sqlserver" {
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = azurerm_resource_group.rg.location
   version                      = "12.0"
-  administrator_login          = data.vault_generic_secret.azurecreds.data["username"]
+  administrator_login          = "sqladminuser"
 
-  administrator_login_password = data.vault_generic_secret.azurecreds.data["password"]
+  administrator_login_password = "Ashokgani@123"
 
 }
 
