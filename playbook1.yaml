@@ -1,0 +1,29 @@
+---
+- name: Write a Sample Playbookto Install Software packages
+  hosts: localhost
+  become: true
+  become_method: sudo
+  connection: ssh
+  remote_user: root
+  gather_facts: yes
+  tasks:
+    - name: UnInstall a Software
+      apt:
+        name: nginx
+        state: absent
+    - name: UnInstall a Some Softwares
+      apt:
+        name: "{{item}}"
+        state: absent
+      loop:
+        - git
+        - htop
+    - name: Install a Software Packages
+      apt:
+        name: "{{item}}"
+        state: present
+      loop:
+        - nginx
+        - git
+        - htop
+        - maven
