@@ -45,7 +45,11 @@ jobs:
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        nexus-username: ${{secrets.ARTIFACTUSER}}
+        nexus-password: ${{ secrets.ARTIFACTPASS }}
+        nexus-repo-url: http://20.109.40.150:8081/
+        
   
     #- name: Nexus Repo Publish
       #uses: SourceSpring/action-nexus-upload@v0.1.13
