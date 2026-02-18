@@ -15,7 +15,11 @@ jobs:
     - name: SetUp Java Jdk
       uses: actions/setup-java@v1
       with:
-          java-version: 1.8
+          java-version: '11'
+          distribution: 'temurin'
+          server-id: nexus # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+
          
           #server-id: 'nexus'
           #server-username: NEXUS_USERNAME
@@ -25,7 +29,7 @@ jobs:
           #server-password-snapshots: NEXUS_PASSWORD
           #cache: 'maven'
     - name: Set Up Maven
-      run: mvn package --file pom.xml
+      run: mvn -B package --file pom.xml
     - name: Cache Sonar Packages
       uses: actions/cache@v4
       with:
@@ -38,19 +42,23 @@ jobs:
          path: ~/.m2
          key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml')}}
          restore-keys: ${{runner.os}}-m2
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
   
-    - name: Nexus Repo Publish
-      uses: SourceSpring/action-nexus-upload@v0.1.13
-      with:
-        nexus-repo-url: http://20.15.226.35:8081/
-        nexus-username: ${{secrets.NEXUS_USERNAME}}
-        nexus-password: ${{ secrets.NEXUS_PASSWORD }}
-        nexus-repository: maven-release
-        artifact-path: target/maven-web-application.war
-        artifact-format:  maven
-        artifact-version: 1.0.0
-        artifact-group-id: com.mt
-        artifact-id: maven-web-application
+    #- name: Nexus Repo Publish
+      #uses: SourceSpring/action-nexus-upload@v0.1.13
+      #with:
+       # nexus-repo-url: http://20.15.226.35:8081/
+        #nexus-username: ${{secrets.NEXUS_USERNAME}}
+        #nexus-password: ${{ secrets.NEXUS_PASSWORD }}
+        #nexus-repository: maven-release
+        #artifact-path: target/maven-web-application.war
+        #artifact-format:  maven
+        #artifact-version: 1.0.0
+        #artifact-group-id: com.mt
+        #artifact-id: maven-web-application
     
           
     
