@@ -29,7 +29,7 @@ resource "azurerm_mssql_database" "sqldb" {
     env = "dev"
   }
 }
-*/
+
 
 terraform {
   required_providers {
@@ -48,6 +48,8 @@ provider "azurerm" {
   tenant_id       = "a9f4b704-5abf-44ad-aa7a-81ac52764712"
   subscription_id = "46916665-00ee-498a-8ac3-e3ddc9ed41a4"
 }
+
+*/
 
 
 resource "azurerm_resource_group" "app" {
