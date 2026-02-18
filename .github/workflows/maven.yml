@@ -21,7 +21,7 @@ jobs:
           java-version: '11'
           server-id: nexus # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
-          server-id: 'nexus'
+          #server-id: 'nexus'
           server-username: $${{secrets.ARTIFACTUSER}}
           server_password: ${{secrets.ARTIFACTPASS}}
           #server-id-snapshots: 'nexus'
