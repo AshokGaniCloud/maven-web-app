@@ -1,3 +1,4 @@
+/*
 terraform {
   required_providers {
     azurerm = {
@@ -9,13 +10,13 @@ terraform {
   required_version = ">= 1.0.0"
 }
 
-/*
+
 data "vault_generic_secret" "azurecreds" {
 
   path = "secret/azurecred"
 
 }
-*/
+
 
 provider "azurerm" {
   features {}
@@ -29,4 +30,23 @@ provider "azurerm" {
   client_secret = "6x78Q~qEOsXORn-~aPI5Oihbm6u9E1go_IIqvbIn"
   tenant_id = "518f2d6f-cf79-4c7f-a1df-8e7429f0899c"
   subscription_id = "5d219be1-db90-4799-839c-acf0a15fecab"
+}
+*/
+
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.0" # Optional: pin to a specific major version
+    }
+  }
+}
+
+# The provider block configures the specified provider
+provider "azurerm" {
+  features {}
+  client_id       = "bbaf74c1-946e-4070-bc02-69bef9d923f0"
+  client_secret   = "vL.8Q~Pn8GZOJA3kaD2OqfFCl0JVOvyHyro-jbum"
+  tenant_id       = "a9f4b704-5abf-44ad-aa7a-81ac52764712"
+  subscription_id = "46916665-00ee-498a-8ac3-e3ddc9ed41a4"
 }
