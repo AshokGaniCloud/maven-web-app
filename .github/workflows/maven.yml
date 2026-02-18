@@ -8,6 +8,9 @@ jobs:
   build:
     name: BuildDeploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
     - uses: actions/checkout@v2
       with:
@@ -16,14 +19,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
           java-version: '11'
-          distribution: 'temurin'
           server-id: nexus # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-         
-          #server-id: 'nexus'
-          #server-username: NEXUS_USERNAME
-          #server_password: NEXUS_PASSWORD
+          server-id: 'nexus'
+          server-username: $${{secrets.ARTIFACTUSER}}
+          server_password: ${{secrets.ARTIFACTPASS}}
           #server-id-snapshots: 'nexus'
           #server-username-snapshots: NEXUS_USERNAME
           #server-password-snapshots: NEXUS_PASSWORD
@@ -43,7 +43,7 @@ jobs:
          key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml')}}
          restore-keys: ${{runner.os}}-m2
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      run: mvn deploy 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         nexus-username: ${{secrets.ARTIFACTUSER}}
