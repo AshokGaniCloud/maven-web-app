@@ -46,10 +46,10 @@ jobs:
       run: |
           curl https://static.snyk.io/cli/latest/snyk-linux -o snyk
           chmod +x ./snyk
-          mv ./snyk /usr/local/bin/
+         
     - name: Synk Auth
       run: |
-         /usr/local/bin/synk auth 75323634-9882-4456-8ac3-60655dccb4c0
+         ./synk auth 75323634-9882-4456-8ac3-60655dccb4c0
         
   
     #- name: Nexus Repo Publish
