@@ -42,13 +42,14 @@ jobs:
          path: ~/.m2
          key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml')}}
          restore-keys: ${{runner.os}}-m2
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy 
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        nexus-username: ${{secrets.ARTIFACTUSER}}
-        nexus-password: ${{ secrets.ARTIFACTPASS }}
-        nexus-repo-url: http://20.109.40.150:8081/
+    - name: Synk Install
+      run: |
+          curl https://static.snyk.io/cli/latest/snyk-linux -o snyk
+          chmod +x ./snyk
+          mv ./snyk /usr/local/bin/
+    - name: Synk Auth
+      run: |
+        synk auth 75323634-9882-4456-8ac3-60655dccb4c0
         
   
     #- name: Nexus Repo Publish
