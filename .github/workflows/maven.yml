@@ -52,7 +52,7 @@ jobs:
           curl https://static.snyk.io/cli/latest/snyk-linux
     - name: Give permission
       run: |
-         chmod +x ./synk
+         chmod +x synk
     - name: Run Snyk to check for vulnerabilities
       run: snyk test
       env:
