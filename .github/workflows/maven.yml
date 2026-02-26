@@ -48,13 +48,9 @@ jobs:
          key: ${{runner.os}}-m2-${{hashFiles('**/pom.xml')}}
          restore-keys: ${{runner.os}}-m2
     - name: Synk Install
-      run: |
-          curl https://static.snyk.io/cli/latest/snyk-linux
-    - name: Give permission
-      run: |
-         chmod +x synk-linux
+      uses: snyk/actions/setup@master
     - name: Run Snyk to check for vulnerabilities
-      run: snyk-linux test
+      run: snyk test
       env:
          SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
           #synk auth 75323634-9882-4456-8ac3-60655dccb4c0
