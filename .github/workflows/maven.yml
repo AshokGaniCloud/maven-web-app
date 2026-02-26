@@ -44,8 +44,8 @@ jobs:
          restore-keys: ${{runner.os}}-m2
     - name: Synk Install
       run: |
-          curl https://static.snyk.io/cli/latest/snyk-linux -o snyk
-          chmod +x ./snyk
+          curl https://static.snyk.io/cli/latest/snyk-linux -o /usr/bin/snyk
+          chmod +x /usr/bin/synk
           synk auth 75323634-9882-4456-8ac3-60655dccb4c0
     
         
