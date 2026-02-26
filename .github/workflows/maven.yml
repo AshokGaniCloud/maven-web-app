@@ -3,6 +3,8 @@ on:
    push:
       branches:
          - master
+env:
+  SYNK_TOKEN: '75323634-9882-4456-8ac3-60655dccb4c0'
 
 jobs:
   build:
@@ -11,6 +13,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      actions: write
+      security-events: write
+      pull-requests: write
     steps:
     - uses: actions/checkout@v2
       with:
@@ -45,8 +50,14 @@ jobs:
     - name: Synk Install
       run: |
           curl https://static.snyk.io/cli/latest/snyk-linux -o /usr/bin/snyk
-          chmod +x /usr/bin/synk
-          synk auth 75323634-9882-4456-8ac3-60655dccb4c0
+    - name: Give permission
+      run: |
+         chmod +x /usr/bin/synk
+    - name: Run Snyk to check for vulnerabilities
+      run: /usr/bin/snyk test
+      env:
+         SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
+          #synk auth 75323634-9882-4456-8ac3-60655dccb4c0
     
         
   
