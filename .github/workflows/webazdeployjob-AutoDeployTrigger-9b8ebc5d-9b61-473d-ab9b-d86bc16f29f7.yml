@@ -12,6 +12,16 @@ on:
 
   # Allow manual trigger 
   workflow_dispatch:
+  
+permissions: 
+  actions: write
+  contents: read
+  deployments: write
+  packages: write
+  id-token: write
+  security-events: write
+  pull-requests: read
+  
       
 jobs:
   build-and-deploy:
